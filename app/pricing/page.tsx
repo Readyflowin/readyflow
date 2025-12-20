@@ -256,7 +256,7 @@ export default function PricingPage() {
                   <span className="text-5xl font-black text-white">₹4,999</span>
                   <span className="text-gray-500 font-medium mb-2">one-time</span>
                 </div>
-                <p className="text-xs text-blue-400 mt-2">Delivery in 5-7 Days • 100% Hand-Coded Setup</p>
+                <p className="text-xs text-blue-400 mt-2">Delivery in 5-7 Days • Hand-Coded Setup upto 3 secotions</p>
               </div>
 
               <div className="space-y-4 mb-8 flex-1">
@@ -265,7 +265,7 @@ export default function PricingPage() {
                 <ListItem text="Payment Gateway & Shipping Setup" />
                 <ListItem text="Legal Pages & Policies" />
                 <div className="p-3 bg-white/5 rounded-lg border border-white/5">
-                  <span className="text-sm font-bold text-white flex items-center gap-2 mb-2"><Code2 size={14} className="text-orange-500"/> Custom Coding Included:</span>
+                  <span className="text-sm font-bold text-white flex items-center gap-2 mb-2"><Code2 size={14} className="text-orange-500"/> Custom Coding Included for upto 3 sections:</span>
                   <ul className="text-xs text-gray-400 space-y-1 pl-6 list-disc">
                     <li>Custom Header/Footer Design</li>
                     <li>Sticky 'Add to Cart' Button</li>

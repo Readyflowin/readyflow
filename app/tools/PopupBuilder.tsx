@@ -6,7 +6,7 @@ import {
   Disc, Cookie, Lock, Copy, Check, ThumbsUp, X, Smartphone, 
   MapPin, ShoppingBag, Loader2, 
   Palette, Clock, TrendingUp, 
-  Shield, Code2, Monitor, ImageIcon
+  Shield, Code2, Monitor, ImageIcon, ArrowRight, Zap
 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch'; 
 import { Button } from '@/components/ui/button';
@@ -285,232 +285,120 @@ export default function PopupBuilder() {
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
       </div>
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+      {/* Main Container Standardized to max-w-6xl for Border Alignment */}
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500 pb-1">
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl md:text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500 pb-1 tracking-tighter">
             Build High-Converting Popups
           </h1>
-          <p className="text-gray-400">No coding required. Customize, preview, and deploy in minutes.</p>
+          <p className="text-gray-400 text-lg">No coding required. Customize, preview, and deploy in minutes.</p>
         </div>
         
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
+        <div className="flex flex-col lg:flex-row gap-8 items-start mb-24">
           
-          {/* --- LEFT SIDEBAR (Templates) --- */}
+          {/* --- LEFT SIDEBAR --- */}
           <div className="w-full lg:w-72 shrink-0 space-y-6">
-            
-            <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-4">
-              <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-4 px-2">Template Library</h3>
+            <div className="bg-[#0a0a0a] border border-white/10 rounded-3xl p-5 shadow-xl">
+              <h3 className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-4 px-2">Library</h3>
               <div className="space-y-2">
                 {templates.map((t) => (
                   <button
                     key={t.id}
-                    onClick={() => { 
-                      setActiveTemplate(t.id as TemplateType); 
-                      setVoteStatus('idle');
-                    }}
-                    className={`w-full flex items-center justify-between p-3 rounded-xl border text-sm transition-all group ${
-                      activeTemplate === t.id 
-                        ? 'bg-orange-500/10 border-orange-500 text-orange-500' 
-                        : 'bg-[#111] border-white/5 text-gray-400 hover:bg-white/5 hover:border-white/10'
-                    }`}
+                    onClick={() => { setActiveTemplate(t.id as TemplateType); setVoteStatus('idle'); }}
+                    className={`w-full flex items-center justify-between p-3.5 rounded-2xl border text-sm transition-all group ${activeTemplate === t.id ? 'bg-orange-500/10 border-orange-500 text-orange-500' : 'bg-[#111] border-white/5 text-gray-400 hover:bg-white/5'}`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className={`p-1.5 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors ${activeTemplate === t.id ? 'bg-orange-500/20' : ''}`}>
-                        <t.icon size={16} className={activeTemplate === t.id ? 'text-orange-500' : t.color} />
-                      </div>
-                      <span className="font-medium">{t.name}</span>
+                      <div className={`p-1.5 rounded-lg bg-white/5 ${activeTemplate === t.id ? 'bg-orange-500/20' : ''}`}><t.icon size={16} className={activeTemplate === t.id ? 'text-orange-500' : t.color} /></div>
+                      <span className="font-bold">{t.name}</span>
                     </div>
-                    {t.status === 'soon' && (
-                      <div className="flex items-center gap-1">
-                        <Lock size={12} className="opacity-50" />
-                        <span className="text-[10px] text-gray-600 uppercase font-bold">Soon</span>
-                      </div>
-                    )}
+                    {t.status === 'soon' && <Lock size={12} className="opacity-30" />}
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-2xl p-4 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-blue-400" />
-                    <span className="text-sm font-bold text-blue-400">Pro Mode</span>
-                  </div>
-                  <Switch checked={isPro} onCheckedChange={handleProSwitch} className="scale-75" />
-                </div>
-                <p className="text-[10px] text-gray-400 leading-relaxed">
-                  Remove watermarks and unlock advanced features
-                </p>
+            <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-3xl p-5">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2"><Shield className="w-4 h-4 text-blue-400" /><span className="text-xs font-black uppercase text-blue-400 tracking-widest">Pro Mode</span></div>
+                <Switch checked={isPro} onCheckedChange={handleProSwitch} className="scale-75" />
               </div>
+              <p className="text-[10px] text-gray-400 leading-relaxed font-medium">Remove watermarks and unlock advanced templates.</p>
             </div>
           </div>
 
-          {/* --- MIDDLE & RIGHT COLUMN --- */}
+          {/* --- MIDDLE & RIGHT COLUMN (Standard Editor Layout) --- */}
           <div className="flex-1 grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
             
             {/* 1. EDITOR */}
             <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-1">Customize Design</h2>
-                <p className="text-gray-400 text-sm">Tailor every detail to match your brand</p>
-              </div>
+              <div className="bg-[#0a0a0a] border border-white/10 p-7 rounded-[2rem] space-y-6 shadow-2xl">
+                <h2 className="text-xl font-black text-white flex items-center gap-2 tracking-tight"><Palette size={20} className="text-orange-500" /> Editor</h2>
 
-              <div className="space-y-5 bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl">
-                
-                {activeTemplate !== 'whatsapp' && (
-                  <div className="space-y-2">
-                    <label className="text-xs text-gray-400 font-bold uppercase tracking-wide flex items-center gap-2">
-                      <Type size={12} />
-                      Headline
-                    </label>
-                    <input 
-                      value={activeTemplate === 'countdown' ? content.countdownTitle : activeTemplate === 'exit' ? content.exitHeadline : content.headline}
-                      onChange={(e) => {
-                          if(activeTemplate === 'countdown') setContent({...content, countdownTitle: e.target.value});
-                          else if(activeTemplate === 'exit') setContent({...content, exitHeadline: e.target.value});
-                          else setContent({...content, headline: e.target.value});
-                      }}
-                      className="w-full bg-black border border-white/20 rounded-xl px-4 py-3 text-sm text-white focus:border-orange-500 outline-none transition-all hover:border-white/30"
-                    />
-                  </div>
-                )}
-
-                <div className="space-y-2">
-                    <label className="text-xs text-gray-400 font-bold uppercase tracking-wide">Description</label>
-                    <textarea 
-                    value={activeTemplate === 'exit' ? content.exitOffer : content.subheadline}
-                    onChange={(e) => activeTemplate === 'exit' ? setContent({...content, exitOffer: e.target.value}) : setContent({...content, subheadline: e.target.value})}
-                    className="w-full bg-black border border-white/20 rounded-xl px-4 py-3 text-sm text-white focus:border-orange-500 outline-none min-h-[80px] transition-all hover:border-white/30"
-                    placeholder="Add compelling copy..."
-                    />
-                </div>
-                
-                <div className="space-y-2">
-                    <label className="text-xs text-gray-400 font-bold uppercase tracking-wide flex items-center gap-2">
-                        <ImageIcon size={12} />
-                        Image URL
-                    </label>
-                    <input 
-                        value={content.imageUrl} 
-                        onChange={(e) => setContent({...content, imageUrl: e.target.value})} 
-                        className="w-full bg-black border border-white/20 rounded-xl px-4 py-3 text-sm text-white focus:border-orange-500 outline-none transition-all hover:border-white/30" 
-                        placeholder="https://..."
-                    />
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-5">
                     <div className="space-y-2">
-                    <label className="text-xs text-gray-400 font-bold uppercase tracking-wide">Button Text</label>
-                    <input 
-                        value={content.buttonText} 
-                        onChange={(e) => setContent({...content, buttonText: e.target.value})} 
-                        className="w-full bg-black border border-white/20 rounded-xl px-4 py-3 text-sm text-white focus:border-orange-500 outline-none transition-all hover:border-white/30" 
-                    />
+                        <label className="text-[10px] text-gray-500 font-black uppercase tracking-widest">Headline</label>
+                        <input value={activeTemplate === 'countdown' ? content.countdownTitle : activeTemplate === 'exit' ? content.exitHeadline : content.headline} onChange={(e) => activeTemplate === 'countdown' ? setContent({...content, countdownTitle: e.target.value}) : activeTemplate === 'exit' ? setContent({...content, exitHeadline: e.target.value}) : setContent({...content, headline: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-orange-500 outline-none transition-all" />
                     </div>
+
                     <div className="space-y-2">
-                        <label className="text-xs text-gray-400 font-bold uppercase tracking-wide">Coupon Code</label>
-                        <input 
-                        value={content.couponCode} 
-                        onChange={(e) => setContent({...content, couponCode: e.target.value})} 
-                        className="w-full bg-black border border-white/20 rounded-xl px-4 py-3 text-sm text-white font-mono focus:border-orange-500 outline-none transition-all hover:border-white/30" 
-                        />
+                        <label className="text-[10px] text-gray-500 font-black uppercase tracking-widest">Description</label>
+                        <textarea value={activeTemplate === 'exit' ? content.exitOffer : content.subheadline} onChange={(e) => activeTemplate === 'exit' ? setContent({...content, exitOffer: e.target.value}) : setContent({...content, subheadline: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-orange-500 outline-none min-h-[80px]" />
                     </div>
-                </div>
-
-                <div className="space-y-2">
-                    <label className="text-xs text-gray-400 font-bold uppercase tracking-wide flex items-center gap-2">
-                      <Palette size={12} />
-                      Brand Color
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <div className="relative overflow-hidden w-12 h-12 rounded-xl border-2 border-white/20 cursor-pointer hover:scale-110 transition-transform">
-                        <input 
-                          type="color" 
-                          value={content.color} 
-                          onChange={(e) => setContent({...content, color: e.target.value})} 
-                          className="absolute -top-2 -left-2 w-16 h-16 cursor-pointer border-none"
-                        />
-                      </div>
-                      <input 
-                        value={content.color} 
-                        onChange={(e) => setContent({...content, color: e.target.value})} 
-                        className="flex-1 bg-black border border-white/20 rounded-xl px-4 py-3 text-sm text-white font-mono uppercase focus:border-orange-500 outline-none transition-all hover:border-white/30"
-                      />
-                    </div>
-                </div>
-
-                <div className="space-y-2 pt-2 border-t border-white/5">
-                    <label className="text-xs text-gray-400 font-bold uppercase tracking-wide flex items-center gap-2">
-                        <Clock size={12} />
-                        Display Delay ({content.delay}s)
-                    </label>
-                    <input 
-                        type="range"
-                        min="0"
-                        max="15"
-                        value={content.delay}
-                        onChange={(e) => setContent({...content, delay: parseInt(e.target.value)})}
-                        className="w-full accent-orange-500"
-                    />
-                </div>
-              </div>
-
-              {/* ACTION: GENERATE OR VOTE */}
-              {isLive ? (
-                <div className="p-6 bg-gradient-to-br from-[#0a0a0a] to-[#050505] border border-white/10 rounded-2xl">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-bold text-white flex items-center gap-2">
-                      <Code2 size={16} className="text-orange-500" />
-                      Installation Code
-                    </h3>
-                    {isPro && (
-                      <div className="flex items-center gap-1.5 text-xs bg-green-500/10 text-green-500 px-2.5 py-1 rounded-full">
-                        <Check size={12} />
-                        No Watermark
+                    
+                    {/* 👇 UPGRADE: IMAGE URL ONLY FOR IMAGE MODAL 👇 */}
+                    {activeTemplate === 'image' && (
+                      <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
+                        <label className="text-[10px] text-gray-500 font-black uppercase tracking-widest flex items-center gap-2"><ImageIcon size={12} /> Image URL</label>
+                        <input value={content.imageUrl} onChange={(e) => setContent({...content, imageUrl: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-orange-500 outline-none" />
                       </div>
                     )}
-                  </div>
-                  <div className="bg-black p-4 rounded-xl border border-white/5 font-mono text-xs text-gray-500 max-h-32 overflow-y-auto mb-4">
-                    {isMounted ? generateCode() : 'Loading...'}
-                  </div>
-                  <button
-                    suppressHydrationWarning
-                    onClick={handleCopy}
-                    className="w-full bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:from-orange-500 hover:to-orange-400 font-bold py-3 rounded-xl transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
-                  >
-                    {copied ? <><Check size={16}/> Copied!</> : <><Copy size={16}/> Copy Code</>}
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className="text-[10px] text-gray-500 font-black uppercase tracking-widest">Button Text</label>
+                        <input value={content.buttonText} onChange={(e) => setContent({...content, buttonText: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] text-gray-500 font-black uppercase tracking-widest">Coupon Code</label>
+                        <input value={content.couponCode} onChange={(e) => setContent({...content, couponCode: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm font-mono" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 items-end">
+                      <div className="space-y-2">
+                        <label className="text-[10px] text-gray-500 font-black uppercase tracking-widest flex items-center gap-2"><Palette size={12} /> Color</label>
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl border border-white/10 overflow-hidden relative"><input type="color" value={content.color} onChange={(e) => setContent({...content, color: e.target.value})} className="absolute -inset-2 w-14 h-14 cursor-pointer border-none" /></div>
+                          <span className="text-xs font-mono text-gray-400 uppercase">{content.color}</span>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] text-gray-500 font-black uppercase tracking-widest flex items-center gap-2"><Clock size={12} /> Delay ({content.delay}s)</label>
+                        <input type="range" min="0" max="15" value={content.delay} onChange={(e) => setContent({...content, delay: parseInt(e.target.value)})} className="w-full accent-orange-500" />
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              {/* ACTION: INSTALLATION CODE */}
+              {isLive ? (
+                <div className="p-7 bg-[#0a0a0a] border border-white/10 rounded-[2rem] space-y-4 shadow-2xl">
+                  <div className="flex items-center justify-between"><h3 className="font-black text-white flex items-center gap-2 tracking-tighter text-sm"><Code2 size={16} className="text-orange-500" /> CODE SNIPPET</h3>{isPro && <span className="text-[9px] font-black text-green-500 uppercase tracking-widest">Pro License</span>}</div>
+                  <div className="bg-black p-4 rounded-xl border border-white/5 font-mono text-[10px] text-gray-500 max-h-32 overflow-y-auto mb-4">{isMounted ? generateCode() : 'Loading...'}</div>
+                  <button suppressHydrationWarning onClick={handleCopy} className="w-full bg-orange-600 text-white font-black py-4 rounded-2xl hover:bg-orange-500 transition-all flex items-center justify-center gap-2 text-xs tracking-widest uppercase">
+                    {copied ? <><Check size={16}/> Copied!</> : <><Copy size={16}/> Copy Integration Code</>}
                   </button>
                 </div>
               ) : (
-                <div className="p-8 bg-[#0a0a0a] border border-orange-500/20 rounded-2xl text-center relative overflow-hidden min-h-[220px] flex flex-col justify-center items-center">
-                  <div className="absolute inset-0 bg-orange-500/5"></div>
+                <div className="p-10 bg-[#0a0a0a] border border-orange-500/20 rounded-[2.5rem] text-center flex flex-col justify-center items-center min-h-[220px]">
                   {voteStatus === 'voted' ? (
-                    <div className="animate-in fade-in zoom-in duration-300 flex flex-col items-center">
-                      <div className="h-14 w-14 bg-green-500/20 rounded-full flex items-center justify-center mb-3 text-green-500">
-                        <Check size={28} />
-                      </div>
-                      <h3 className="text-xl font-bold text-white mb-1">Response Recorded</h3>
-                      <p className="text-gray-400 text-sm">Thanks! We&apos;ll notify you when this drops.</p>
-                    </div>
+                    <div className="animate-in fade-in zoom-in"><div className="h-14 w-14 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3 text-green-500"><Check size={28} /></div><h3 className="text-lg font-black tracking-tight">Vote Recorded</h3></div>
                   ) : voteStatus === 'loading' ? (
-                    <div className="animate-in fade-in duration-300 flex flex-col items-center">
-                      <Loader2 size={32} className="text-orange-500 animate-spin mb-3" />
-                      <h3 className="text-lg font-bold text-white">Registering Vote...</h3>
-                    </div>
+                    <Loader2 size={32} className="text-orange-500 animate-spin" />
                   ) : (
-                    <div className="flex flex-col items-center w-full relative z-10">
-                      <Lock size={32} className="text-orange-500 mb-4" />
-                      <h3 className="text-xl font-bold text-white mb-2">Code Locked</h3>
-                      <p className="text-gray-400 text-sm mb-6 max-w-xs mx-auto">Customize the preview, then vote to unlock this tool.</p>
-                      <Button suppressHydrationWarning onClick={handleVote} className="bg-orange-600 hover:bg-orange-500 text-white font-bold w-full">
-                        <ThumbsUp size={16} className="mr-2"/> Vote to Unlock
-                      </Button>
-                    </div>
+                    <div className="flex flex-col items-center"><Lock size={32} className="text-orange-500 mb-4" /><h3 className="text-xl font-black mb-2 tracking-tight uppercase">Template Locked</h3><Button suppressHydrationWarning onClick={handleVote} className="bg-orange-600 hover:bg-orange-500 px-8 py-6 rounded-2xl font-black tracking-widest mt-4">VOTE TO UNLOCK</Button></div>
                   )}
                 </div>
               )}
@@ -518,100 +406,69 @@ export default function PopupBuilder() {
 
             {/* 2. PREVIEW AREA */}
             <div className="relative flex flex-col gap-4">
-                <div className="flex justify-end gap-2">
-                    <button suppressHydrationWarning onClick={() => setDevicePreview('desktop')} className={`p-2 rounded-lg ${devicePreview === 'desktop' ? 'bg-white/10 text-white' : 'text-gray-500'}`}><Monitor size={18} /></button>
-                    <button suppressHydrationWarning onClick={() => setDevicePreview('mobile')} className={`p-2 rounded-lg ${devicePreview === 'mobile' ? 'bg-white/10 text-white' : 'text-gray-500'}`}><Smartphone size={18} /></button>
+                <div className="flex justify-end gap-2 px-2">
+                    <button suppressHydrationWarning onClick={() => setDevicePreview('desktop')} className={`p-2.5 rounded-xl transition-all ${devicePreview === 'desktop' ? 'bg-white/10 text-white shadow-lg' : 'text-gray-600'}`}><Monitor size={18} /></button>
+                    <button suppressHydrationWarning onClick={() => setDevicePreview('mobile')} className={`p-2.5 rounded-xl transition-all ${devicePreview === 'mobile' ? 'bg-white/10 text-white shadow-lg' : 'text-gray-600'}`}><Smartphone size={18} /></button>
                 </div>
 
                 <div className="flex justify-center">
-                    <div className={`transition-all duration-500 ease-in-out bg-white rounded-xl overflow-hidden shadow-2xl relative border border-gray-800 flex items-center justify-center
+                    <div className={`transition-all duration-500 ease-in-out bg-white rounded-[2.5rem] overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.5)] relative border-8 border-gray-900 flex items-center justify-center
                         ${devicePreview === 'mobile' ? 'w-[375px] h-[667px]' : 'w-full h-[600px]'}`}
                     >
-                        {/* THE PREVIEW OVERLAY FOR SOON TOOLS */}
                         {!isLive && isMounted && (
-                            <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-[2px]">
-                                <div className="w-full bg-orange-500/90 py-3 text-center transform -rotate-3 shadow-xl">
-                                    <p className="text-white font-black text-xl uppercase tracking-widest">Coming Soon</p>
-                                </div>
+                            <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                                <div className="w-full bg-orange-500/90 py-3 text-center transform -rotate-3 shadow-xl"><p className="text-white font-black text-xl uppercase tracking-widest drop-shadow-md">Coming Soon</p></div>
                             </div>
                         )}
-
-                        <div className="absolute inset-0 bg-gray-100 opacity-10 bg-[url('https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png')] bg-cover bg-center grayscale"></div>
+                        <div className="absolute inset-0 bg-gray-50 opacity-10 bg-[url('https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png')] bg-cover grayscale"></div>
                         
                         {isMounted && (
                           <>
                             {activeTemplate === 'simple' && (
-                                <div className="relative bg-white w-[85%] max-w-[320px] p-6 rounded-xl text-center shadow-xl border-t-4 animate-in fade-in duration-500" style={{ borderColor: content.color }}>
-                                    <div className="absolute top-2 right-3 text-gray-400 cursor-pointer"><X size={18}/></div>
-                                    <div className="text-4xl mb-3">🎁</div>
-                                    <h2 className="text-xl font-bold text-gray-900">{content.headline}</h2>
-                                    <p className="text-xs text-gray-500 my-2">{content.subheadline}</p>
-                                    <button suppressHydrationWarning className="w-full py-2 rounded text-white font-bold text-xs mt-2" style={{ background: content.color }}>{content.buttonText}</button>
-                                    {!isPro && <div className="mt-3 text-[9px] text-gray-300">⚡ Powered by ReadyFlow</div>}
+                                <div className="relative bg-white w-[85%] max-w-[320px] p-8 rounded-3xl text-center shadow-2xl border-t-[6px] animate-in fade-in duration-500" style={{ borderColor: content.color }}>
+                                    <div className="absolute top-3 right-4 text-gray-300"><X size={20}/></div>
+                                    <div className="text-5xl mb-5">🎁</div>
+                                    <h2 className="text-2xl font-black text-gray-900 tracking-tight leading-tight">{content.headline}</h2>
+                                    <p className="text-sm text-gray-500 my-4 leading-relaxed">{content.subheadline}</p>
+                                    <button suppressHydrationWarning className="w-full py-4 rounded-2xl text-white font-black text-xs tracking-widest shadow-lg" style={{ background: content.color }}>{content.buttonText}</button>
+                                    {!isPro && <div className="mt-5 text-[10px] text-gray-300 font-bold uppercase">⚡ Powered by ReadyFlow</div>}
                                 </div>
                             )}
 
                             {activeTemplate === 'image' && (
-                                <div className="relative bg-white w-[90%] max-w-[340px] rounded-xl text-center shadow-xl overflow-hidden animate-in fade-in duration-500">
-                                    <div className="absolute top-2 right-2 w-7 h-7 bg-white/90 rounded-full flex items-center justify-center text-gray-600 shadow-sm z-10 pb-1 cursor-pointer">×</div>
-                                    {/* Image Render Logic Ensured */}
-                                    <img src={content.imageUrl} className="w-full h-40 object-cover" alt="Preview"/>
-                                    <div className="p-5">
-                                        <h2 className="text-lg font-bold text-gray-900">{content.headline}</h2>
-                                        <p className="text-xs text-gray-500 my-2">{content.subheadline}</p>
-                                        <div className="bg-gray-100 border border-dashed border-gray-300 rounded p-2 flex justify-between items-center">
-                                            <span className="font-mono font-bold text-gray-800 text-sm">{content.couponCode}</span>
-                                            <button suppressHydrationWarning className="bg-black text-white text-[10px] px-2 py-1 rounded">COPY</button>
-                                        </div>
-                                        {!isPro && <div className="mt-3 text-[9px] text-gray-300">⚡ Powered by ReadyFlow</div>}
+                                <div className="relative bg-white w-[90%] max-w-[340px] rounded-[2rem] text-center shadow-2xl overflow-hidden animate-in fade-in duration-500">
+                                    <div className="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-gray-600 shadow-lg cursor-pointer pb-0.5 font-bold">×</div>
+                                    {/* Image logic ensured */}
+                                    <img src={content.imageUrl} className="w-full h-44 object-cover" alt="Preview"/>
+                                    <div className="p-7">
+                                        <h2 className="text-xl font-black text-gray-900 tracking-tight leading-tight">{content.headline}</h2>
+                                        <p className="text-xs text-gray-500 my-3 leading-relaxed">{content.subheadline}</p>
+                                        <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl p-3.5 flex justify-between items-center"><span className="font-mono font-black text-gray-800 text-base">{content.couponCode}</span><button suppressHydrationWarning className="bg-black text-white text-[10px] font-black px-3 py-1.5 rounded-xl uppercase">COPY</button></div>
+                                        {!isPro && <div className="mt-5 text-[9px] text-gray-300 font-bold uppercase tracking-widest">⚡ Powered by ReadyFlow</div>}
                                     </div>
                                 </div>
                             )}
 
                             {activeTemplate === 'spin' && (
-                                <div className="relative animate-in zoom-in fade-in duration-500 flex flex-col items-center">
-                                    <h3 className="mb-6 text-2xl font-black text-gray-800 drop-shadow-sm uppercase tracking-tight">{content.headline}</h3>
-                                    <div className="relative scale-75 md:scale-90">
-                                        <div className="w-80 h-80 rounded-full border-8 border-white shadow-2xl relative overflow-hidden transition-transform duration-[3000ms] cubic-bezier(0.15, 0, 0.15, 1)"
-                                            style={{ transform: `rotate(${spinRotation}deg)` }}>
-                                            {content.segments.map((seg, i) => {
-                                                const rotateAngle = i * (360 / content.segments.length);
-                                                const isEven = i % 2 === 0;
-                                                return (
-                                                    <div key={i} className="absolute w-full h-full top-0 left-0" style={{ transform: `rotate(${rotateAngle}deg)` }}>
-                                                        <div className="absolute w-full h-1/2 top-0 left-0 origin-bottom"
-                                                            style={{ 
-                                                                  backgroundColor: isEven ? content.color : '#f3f4f6',
-                                                                  transform: `rotate(${360 / content.segments.length}deg) skewY(-${90 - (360/content.segments.length)}deg)`
-                                                            }}>
-                                                        </div>
-                                                        <div className="absolute top-8 left-1/2 -translate-x-1/2 text-center" style={{ transform: `rotate(${360/content.segments.length/2}deg)`, width: '80px' }}>
-                                                            <span className={`text-[11px] font-bold uppercase tracking-wider block ${isEven ? 'text-white' : 'text-gray-800'}`}>{seg}</span>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
-                                        <div onClick={handleSpin} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg z-20 flex items-center justify-center font-black text-xs text-gray-800 cursor-pointer border-4 border-gray-100">SPIN</div>
-                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-t-[25px] border-t-gray-800 z-30"></div>
-                                    </div>
-                                    {!isPro && <div className="mt-4 text-[10px] text-gray-400">⚡ Powered by ReadyFlow</div>}
+                                <div className="relative flex flex-col items-center scale-90 animate-in zoom-in duration-500">
+                                    <h3 className="mb-6 text-2xl font-black text-gray-900 tracking-tighter uppercase">{content.headline}</h3>
+                                    <div className="relative"><div className="w-72 h-72 rounded-full border-8 border-gray-900 shadow-2xl relative overflow-hidden transition-transform duration-[4000ms] cubic-bezier(0.15, 0, 0.15, 1)" style={{ transform: `rotate(${spinRotation}deg)` }}>
+                                        {content.segments.map((seg, i) => (
+                                            <div key={i} className="absolute w-full h-full top-0 left-0" style={{ transform: `rotate(${i * (360 / content.segments.length)}deg)` }}>
+                                                <div className="absolute w-full h-1/2 top-0 origin-bottom" style={{ backgroundColor: i % 2 === 0 ? content.color : '#f3f4f6', transform: `rotate(${360 / content.segments.length}deg) skewY(-${90 - (360/content.segments.length)}deg)` }}></div>
+                                                <div className="absolute top-7 left-1/2 -translate-x-1/2 text-center" style={{ transform: `rotate(${180/content.segments.length}deg)`, width: '70px' }}><span className={`text-[10px] font-black uppercase block leading-none ${i % 2 === 0 ? 'text-white' : 'text-gray-900'}`}>{seg}</span></div>
+                                            </div>
+                                        ))}
+                                    </div><div onClick={handleSpin} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-white rounded-full shadow-lg z-20 flex items-center justify-center font-black text-[10px] text-gray-900 cursor-pointer border-4 border-gray-100">SPIN</div><div className="absolute -top-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-t-[25px] border-t-gray-900 z-30"></div></div>
+                                    {!isPro && <div className="mt-8 text-[10px] text-gray-300 font-bold uppercase tracking-widest">⚡ Powered by ReadyFlow</div>}
                                 </div>
                             )}
 
                             {activeTemplate === 'whatsapp' && (
-                                <div className="relative bg-white w-[85%] max-w-[320px] p-6 rounded-2xl shadow-xl animate-in fade-in duration-500 border-l-8 border-green-500">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600"><MessageCircle size={24}/></div>
-                                        <div className="text-left">
-                                            <h4 className="text-sm font-black text-gray-900">Chat with us</h4>
-                                            <p className="text-[10px] text-green-500 font-bold">Online Now</p>
-                                        </div>
-                                    </div>
-                                    <p className="text-xs text-gray-600 mb-4 text-left bg-gray-50 p-3 rounded-lg">{content.subheadline}</p>
-                                    <button className="w-full bg-green-500 py-3 rounded-xl text-white font-black text-xs flex items-center justify-center gap-2">
-                                        <Smartphone size={14}/> START CHAT
-                                    </button>
+                                <div className="relative bg-white w-[85%] max-w-[320px] p-7 rounded-[2rem] shadow-2xl border-l-[10px] border-green-500 animate-in fade-in duration-500">
+                                    <div className="flex items-center gap-4 mb-5"><div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center text-green-600"><MessageCircle size={28}/></div><div className="text-left"><h4 className="text-base font-black text-gray-900">Live Support</h4><p className="text-[10px] text-green-500 font-bold">Agents Online</p></div></div>
+                                    <p className="text-xs text-gray-600 mb-6 text-left leading-relaxed bg-gray-50 p-4 rounded-2xl italic">&quot;{content.subheadline}&quot;</p>
+                                    <button className="w-full bg-green-500 py-4 rounded-2xl text-white font-black text-xs tracking-widest shadow-lg flex items-center justify-center gap-2"><Smartphone size={16}/> START CHAT</button>
                                 </div>
                             )}
                           </>
@@ -621,19 +478,75 @@ export default function PopupBuilder() {
             </div>
           </div>
         </div>
+
+        {/* --- EXPERT SETUP CTA --- */}
+        <div className="mb-32 grid md:grid-cols-2 gap-10 items-center bg-white/[0.02] border border-white/5 rounded-[4rem] p-10 md:p-20 shadow-2xl">
+          <div>
+            <h3 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 leading-tight">Bhai, itna manual <br /><span className="text-gray-500">setup kyun?</span></h3>
+            <p className="text-gray-400 text-lg mb-10 leading-relaxed font-medium">Agar aap popup ya store khud configure nahi kar paa rahe, toh hamara <strong className="text-white">Expert Setup</strong> package dekhein. Hum sab automate kar dete hain.</p>
+            <div className="flex flex-col sm:flex-row gap-5">
+              <button suppressHydrationWarning className="px-10 py-5 bg-orange-500 text-black font-black rounded-2xl text-sm tracking-widest uppercase hover:bg-orange-400 transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20">Book Call <ArrowRight size={18}/></button>
+              <button suppressHydrationWarning className="px-10 py-5 bg-white/5 border border-white/10 text-white font-black rounded-2xl text-sm tracking-widest uppercase hover:bg-white/10">View Work</button>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <FeatureCard title="COD Verify" desc="WhatsApp OTP based flow." />
+            <FeatureCard title="RTO Filter" desc="Block fake orders via code." />
+            <FeatureCard title="Custom UI" desc="Bespoke Shopify design." />
+            <FeatureCard title="Speed x10" desc="Sub-second page loading." />
+          </div>
+        </div>
+
+        {/* --- INSTALLATION GUIDE --- */}
+        <div className="mb-32">
+          <div className="flex items-center gap-2 text-gray-500 font-black text-[10px] uppercase tracking-[0.4em] mb-12">
+            <Clock size={16} /> 5-Minute Setup Guide
+          </div>
+          <div className="grid md:grid-cols-3 gap-16">
+            <Step num="01" text="Generate your custom popup code using the builder above." />
+            <Step num="02" text="Go to Online Store > Themes and click Edit Code in Shopify." />
+            <Step num="03" text="Open theme.liquid and paste the code right before the </body> tag." />
+          </div>
+        </div>
+
+        {/* --- TESTIMONIAL --- */}
+        <div className="max-w-4xl mx-auto text-center border-t border-white/5 pt-20">
+          <p className="text-2xl md:text-4xl font-medium text-gray-300 italic leading-relaxed mb-10">&quot;Unlike heavy apps that load 2MB of JS, this script is only 5KB. It ensures your store remains fast while still capturing every lead.&quot;</p>
+          <div className="flex flex-col items-center gap-3"><img src="/logo.png" alt="Aditya" className="w-12 h-12 grayscale brightness-200" /><span className="font-black text-sm uppercase tracking-[0.2em] text-orange-500">— Aditya, ReadyFlow Founder</span></div>
+        </div>
       </div>
 
+      {/* --- UPGRADE MODAL --- */}
       {showUpgradeModal && (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div className="bg-[#111] border border-gray-700 p-8 rounded-2xl w-full max-w-sm text-center relative">
-                <button suppressHydrationWarning onClick={() => setShowUpgradeModal(false)} className="absolute top-4 right-4 text-gray-500 hover:text-white"><X size={20}/></button>
-                <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-4"><Lock size={32} className="text-orange-500" /></div>
-                <h3 className="text-xl font-bold text-white mb-2">Premium Feature Locked</h3>
-                <p className="text-gray-400 mb-6 text-sm">Advanced features like <strong className="text-white">No Watermark</strong> and <strong className="text-white">Pro Templates</strong> are only for Pro members.</p>
-                <button suppressHydrationWarning onClick={() => router.push('/pricing')} className="w-full py-3 bg-orange-500 text-white rounded-xl font-bold">Upgrade Now - ₹29</button>
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-xl p-6">
+            <div className="bg-[#0a0a0a] border border-white/10 p-10 rounded-[3rem] w-full max-w-md text-center relative animate-in zoom-in-95 duration-300">
+                <button suppressHydrationWarning onClick={() => setShowUpgradeModal(false)} className="absolute top-6 right-6 text-gray-600 hover:text-white transition-colors"><X size={24}/></button>
+                <div className="w-20 h-20 bg-blue-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8"><Lock size={40} className="text-blue-500" /></div>
+                <h3 className="text-3xl font-black text-white mb-4 tracking-tighter">Premium Locked</h3>
+                <p className="text-gray-400 mb-10 leading-relaxed font-medium">Advanced features like <strong className="text-white">No Watermark</strong>, <strong className="text-white">Exit Intent</strong>, and <strong className="text-white">Pro Templates</strong> are only for Pro Plan.</p>
+                <button suppressHydrationWarning onClick={() => router.push('/pricing')} className="w-full py-5 bg-orange-500 text-black font-black rounded-2xl hover:bg-orange-400 transition-all shadow-xl shadow-orange-500/20 uppercase tracking-widest text-sm">Upgrade Now — ₹29</button>
             </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// --- HELPERS ---
+function FeatureCard({ title, desc }: { title: string, desc: string }) {
+  return (
+    <div className="bg-white/[0.03] p-6 rounded-[2rem] border border-white/5 hover:border-orange-500/20 transition-all group">
+      <h4 className="font-black text-orange-500 text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2"><Check size={12} /> {title}</h4>
+      <p className="text-[11px] text-gray-500 font-medium leading-relaxed">{desc}</p>
+    </div>
+  );
+}
+
+function Step({ num, text }: { num: string, text: string }) {
+  return (
+    <div className="flex gap-6 group">
+      <div className="text-5xl font-black text-white/5 group-hover:text-orange-500/20 transition-colors duration-500">{num}</div>
+      <p className="text-sm text-gray-400 font-bold leading-relaxed pt-2">{text}</p>
     </div>
   );
 }

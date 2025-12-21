@@ -1,64 +1,73 @@
-import { MetadataRoute } from 'next';
-import { cities } from '@/lib/cityData';
+import { MetadataRoute } from "next";
+import { cities } from "@/lib/cityData";
+
+const baseUrl = "https://readyflow.in";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://readyflow.in';
+  // 1. Core Pages - Typed as MetadataRoute.Sitemap
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
+    { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/locations`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/pricing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${baseUrl}/portfolio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.3 },
+    { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.3 },
+    { url: `${baseUrl}/refund`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.3 },
+    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+  ];
 
-  // 1. High-Priority Service Routes (Commercial SEO)
-  // Humne is naye Shopify page ko top priority di hai
-  const serviceRoutes = [
-    '/services/shopify-store-setup',
-  ].map(route => ({
+  // 2. Service Routes - Fixed Type
+  const serviceRoutes: MetadataRoute.Sitemap = [
+    "/services/shopify-store-setup",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 1.0, // Commercial intent is highest
+    changeFrequency: "weekly",
+    priority: 0.9,
   }));
 
-  // 2. City-Based Routes (Local SEO - "Website near me")
-  const cityRoutes = Object.keys(cities).map(city => ({
-    url: `${baseUrl}/locations/${city}`,
+  // 3. City-based SEO - Fixed Type
+  const cityRoutes: MetadataRoute.Sitemap = Object.keys(cities || {}).map((city) => ({
+    url: `${baseUrl}/locations/${city.toLowerCase()}`,
     lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.9, 
+    changeFrequency: "monthly",
+    priority: 0.6,
   }));
 
-  // 3. Authority Guides (Educational SEO)
-  const guideRoutes = [
-    '/guides/how-to-start-selling-online-india',
-    '/guides/shopify-vs-woocommerce-india-cost',
-    '/guides/rto-reduction-strategy-india'
-  ].map(route => ({
+  // 4. Content / Guides - Fixed Type
+  const guideRoutes: MetadataRoute.Sitemap = [
+    "/guides/how-to-start-selling-online-india",
+    "/guides/shopify-vs-woocommerce-india-cost",
+    "/guides/rto-reduction-strategy-india",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
+    changeFrequency: "monthly",
     priority: 0.8,
   }));
 
-  // 4. Utility Tool Routes (Lead Magnets)
-  const toolRoutes = [
-    '/tools/policy-generator',
-    '/tools/profit-calculator',
-    '/tools/smart-chatbot',
-    '/tools/popup-builder'
-  ].map(route => ({
+  // 5. Tools - Fixed Type
+  const toolRoutes: MetadataRoute.Sitemap = [
+    "/tools/rto-shield",
+    "/tools/policy-generator",
+    "/tools/profit-calculator",
+    "/tools/smart-chatbot",
+    "/tools/popup-builder",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
+    changeFrequency: "weekly",
+    priority: 0.8,
   }));
 
-  // Final Sitemap Array
   return [
-    { 
-      url: baseUrl, 
-      lastModified: new Date(), 
-      changeFrequency: 'daily', 
-      priority: 1.0 
-    },
+    ...staticRoutes,
     ...serviceRoutes,
-    ...cityRoutes,
-    ...guideRoutes,
     ...toolRoutes,
+    ...guideRoutes,
+    ...cityRoutes,
   ];
 }

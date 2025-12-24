@@ -9,7 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// 👇 1. ADVANCED SEO METADATA (Fixes Title, Description, and Social Warnings)
+// 👇 1. ADVANCED SEO METADATA (Updated with Icons)
 export const metadata: Metadata = {
   metadataBase: new URL('https://readyflow.in'),
   title: {
@@ -19,6 +19,13 @@ export const metadata: Metadata = {
   description: "Launch your online business with ReadyFlow's free Shopify tools. From Profit Calculators to RTO Reduction strategies, we help Indian eCommerce brands scale.",
   keywords: ["Shopify India", "eCommerce Tools", "RTO Reduction", "Shopify Developer India", "Shopify pe bechna kese shuru karein"],
   
+  // ✅ ADDED: Icons Configuration (Links your icon.png)
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png', // High-res 1024x1024 is perfect for Apple devices
+  },
+
   // Canonical Tag Fix
   alternates: {
     canonical: '/',
@@ -32,6 +39,14 @@ export const metadata: Metadata = {
     siteName: 'ReadyFlow',
     locale: 'en_IN',
     type: 'website',
+    images: [
+        {
+          url: '/icon.png', // Using your logo as OG Image fallback
+          width: 1024,
+          height: 1024,
+          alt: 'ReadyFlow Logo',
+        },
+    ],
   },
 
   // X (Twitter) Cards
@@ -39,11 +54,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ReadyFlow | Shopify eCommerce Tools India',
     description: 'Stop burning cash on RTO. Scale your Shopify profit with ReadyFlow.',
+    images: ['/icon.png'], // Twitter fallback image
   },
 
   // Verification for Search Console
   verification: {
-    google: 'your-google-verification-code', // GSC se mila code yahan dal sakte ho
+    google: 'your-google-verification-code', // Paste actual code here if you have it
   }
 };
 
@@ -53,16 +69,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  // 👇 2. JSON-LD IDENTITY SCHEMA (Fixes Identity & Local Business Schema Warnings)
+  // 👇 2. JSON-LD IDENTITY SCHEMA
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "ReadyFlow",
     "url": "https://readyflow.in",
-    "logo": "https://readyflow.in/logo.png",
+    "logo": "https://readyflow.in/icon.png", // Updated to point to the new icon
     "description": "Premium Shopify and WordPress development agency in India focusing on RTO reduction and profit optimization.",
     "sameAs": [
-      "https://youtube.com/@readyflow", // Apna sahi handle dal dena
+      "https://youtube.com/@readyflow", 
       "https://linkedin.com/in/your-profile",
       "https://instagram.com/readyflow"
     ],

@@ -474,39 +474,7 @@ export default function PopupBuilder() {
           </div>
         </div>
 
-        {/* --- EXPERT SETUP CTA --- */}
-        <div className="mb-32 grid md:grid-cols-2 gap-10 items-center bg-white/[0.02] border border-white/5 rounded-[4rem] p-10 md:p-20 shadow-2xl">
-          <div>
-            <h3 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 leading-tight">Bhai, itna manual <br /><span className="text-gray-500">setup kyun?</span></h3>
-            <p className="text-gray-400 text-lg mb-10 leading-relaxed font-medium">Agar aap popup ya store khud configure nahi kar paa rahe, toh hamara <strong className="text-white">Expert Setup</strong> package dekhein. Hum sab automate kar dete hain.</p>
-            <div className="flex flex-col sm:flex-row gap-5">
-              <button suppressHydrationWarning className="px-10 py-5 bg-orange-500 text-black font-black rounded-2xl text-sm tracking-widest uppercase hover:bg-orange-400 transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20">Book Call <ArrowRight size={18}/></button>
-              <button suppressHydrationWarning className="px-10 py-5 bg-white/5 border border-white/10 text-white font-black rounded-2xl text-sm tracking-widest uppercase hover:bg-white/10">View Work</button>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <FeatureCard title="COD Verify" desc="WhatsApp OTP based flow." />
-            <FeatureCard title="RTO Filter" desc="Block fake orders via code." />
-            <FeatureCard title="Custom UI" desc="Bespoke Shopify design." />
-            <FeatureCard title="Speed x10" desc="Sub-second page loading." />
-          </div>
-        </div>
-
-        {/* --- INSTALLATION GUIDE --- */}
-        <div className="mb-32">
-          <div className="flex items-center gap-2 text-gray-500 font-black text-[10px] uppercase tracking-[0.4em] mb-12">
-            <Clock size={16} /> 5-Minute Setup Guide
-          </div>
-          <div className="grid md:grid-cols-3 gap-16">
-            <Step num="01" text="Generate your custom popup code using the builder above." />
-            <Step num="02" text="Go to Online Store > Themes and click Edit Code in Shopify." />
-            <Step num="03" text="Open theme.liquid and paste the code right before the </body> tag." />
-          </div>
-        </div>
-
-        
       </div>
-
       {/* --- UPGRADE MODAL --- */}
       {showUpgradeModal && (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 backdrop-blur-xl p-6">

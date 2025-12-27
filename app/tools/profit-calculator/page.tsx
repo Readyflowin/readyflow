@@ -9,29 +9,40 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-// --- MOCK DATABASE RESPONSE ---
+// --- DATABASE SIMULATION (SEO & GEO OPTIMIZED) ---
 const PAGE_DATA = {
   id: "profit-calculator",
   slug: "profit-calculator",
   hero: {
-    badge: "Stop Guessing, Start Scaling",
-    title: "Net Profit & <br /> <span class='text-teal-500'>ROI Calculator</span>",
-    subtitle: "India mein dhanda sales se nahi, <span class='text-white font-bold'>Net Profit</span> se chalta hai. Account for RTO, Ads, aur Shipping in one click."
+    badge: "Unit Economics Engine",
+    title: "Shopify Profit & <br /> <span class='text-teal-500'>RTO Calculator</span> India",
+    subtitle: "Stop scaling on Gross Revenue. Calculate your <strong class='text-white'>True Net Margin</strong> after deducting <span class='text-white font-bold'>Shiprocket Shipping</span>, Razorpay Fees, and RTO Losses. Reveal your actual Break-even ROAS."
   },
   seo: {
-    title: "ReadyFlow India-Specific Profit & RTO Calculator",
-    desc: "Calculate true net profit for Indian Shopify & E-commerce stores. Accurate RTO loss estimation, shipping costs, and Meta ads ROI analysis.",
+    title: "Shopify Profit & RTO Calculator India - True Net Margin Analysis (GST Included)",
+    desc: "Calculate real profit after Shiprocket shipping, Razorpay fees (2%), and RTO losses. Reveal your Breakeven ROAS instantly. Essential for Indian D2C scaling.",
     schemaType: "FinanceApplication",
     rating: "4.9",
     reviewCount: "188"
   },
   faq: [
-    { q: "What is a safe RTO percentage in India?", a: "For most D2C brands, an RTO of 15-20% is manageable. Anything above 25% requires immediate intervention via automated verification tools." }
+    { 
+      q: "Does this account for Forward + Reverse shipping on RTO?", 
+      a: "Yes. In India, an RTO order costs you double (Forward + Reverse Charge). This calculator deducts ₹100-₹150 per RTO order to show your true loss." 
+    },
+    { 
+      q: "How do you calculate Break-even ROAS?", 
+      a: "We use the formula: Average Order Value / (Gross Margin - Shipping - Payment Fees). This tells you exactly how much you can spend on Facebook Ads to make ₹0 profit." 
+    },
+    { 
+      q: "Does it handle GST Input Credit?", 
+      a: "Yes. It separates GST collected on products vs. GST paid on services (Shipping/Ads), giving you a clearer picture of your tax liability." 
+    }
   ],
   // --- STICKY BANNER SETTINGS ---
   stickyCta: {
     show: true,
-    text: "Worried about red numbers?",
+    text: "Bleeding money on RTO?",
     btnText: "BOOK PROFIT AUDIT",
     price: "₹1999"
   }
@@ -55,7 +66,7 @@ export default function CalculatorPage() {
     });
 
     const msg = `Hi ReadyFlow! I'm interested in the *${PAGE_DATA.stickyCta.btnText}*.
-I used the calculator and want to fix my margins.
+I used the Profit Calculator and want to fix my margins.
 
 *Date:* ${dateStr}
 *Time Slot:* ${selectedTime}
@@ -70,12 +81,24 @@ Please let me know if this time slot is available.`;
   };
 
 
-  // --- SEO SCHEMAS ---
+  // --- SEO SCHEMAS (Enhanced for GEO) ---
   const toolSchema = {
     "@context": "https://schema.org",
     "@type": PAGE_DATA.seo.schemaType,
     "name": PAGE_DATA.seo.title,
     "description": PAGE_DATA.seo.desc,
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web, Shopify",
+    "variableMeasured": [
+      "Net Profit Margin",
+      "Return on Ad Spend (ROAS)", 
+      "RTO Loss Impact",
+      "GST Input Credit"
+    ],
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Indian D2C Merchants"
+    },
     "offers": { "@type": "Offer", "price": "1999", "priceCurrency": "INR" },
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": PAGE_DATA.seo.rating, "ratingCount": PAGE_DATA.seo.reviewCount }
   };
@@ -137,24 +160,24 @@ Please let me know if this time slot is available.`;
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-16 md:mb-24">
                 <div className="bg-white/[0.02] border border-white/10 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem]">
                     <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-3">
-                        <ShieldAlert className="text-red-500" /> The RTO Trap
+                        <ShieldAlert className="text-red-500" /> The RTO Reality
                     </h2>
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                        Aksar log sirf Facebook Ads ki ROAS dekhte hain. Lekin agar aapka <strong className="text-white">RTO 30%</strong> hai, toh aapka real profit minus mein ja sakta hai. 
+                        Most calculators ignore RTO costs. But if your RTO is 30%, you are paying double shipping on 3 out of 10 orders. Use our <Link href="/tools/rto-shield" className="text-teal-400 font-bold hover:underline">RTO Shield</Link> to fix this leakage.
                     </p>
                     <div className="p-4 bg-red-500/5 rounded-2xl border border-red-500/10 text-[11px] md:text-xs text-red-200/60">
-                        <strong>Pro Tip:</strong> Har RTO parcel pe aapka forward aur reverse dono shipping charge lagta.
+                        <strong>Fact:</strong> High RTO kills net margin faster than low ROAS.
                     </div>
                 </div>
                 <div className="bg-white/[0.02] border border-white/10 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem]">
                     <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-3">
-                        <TrendingUp className="text-teal-500" /> Scalability Math
+                        <TrendingUp className="text-teal-500" /> Delivered GMV Focus
                     </h2>
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                        Scale karne ke liye aapko pata hona chahiye ki aapka <strong className="text-white">Break-even ROAS</strong> kya hai. 
+                         Don't scale based on Dashboard Sales. Scale based on <strong className="text-white">Delivered GMV</strong>. This tool reveals your actual bank settlement amount after all deductions.
                     </p>
                     <div className="p-4 bg-teal-500/5 rounded-2xl border border-teal-500/10 text-[11px] md:text-xs text-teal-200/60">
-                        <strong>Aim for:</strong> India mein 20-25% net margin ko healthy mana jata hai.
+                        <strong>Benchmark:</strong> Aim for 20-25% Net Margin in India.
                     </div>
                 </div>
             </div>

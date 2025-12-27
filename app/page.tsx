@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Head from 'next/head'; // <--- IMPORT ADDED
 import HeroSection from '../components/HeroSection';
 import ToolsSection from '../components/ToolsSection';
 import Testimonials from '../components/Testimonials';
@@ -17,10 +18,17 @@ export default function Home() {
   return (
     <main className="bg-black min-h-screen">
       
+      {/* --- SEO & FAVICON HEAD (ADDED) --- */}
+      <Head>
+        <title>ReadyFlow | Shopify Tools for India</title>
+        <meta name="description" content="Free Shopify tools for Indian Dropshipping: RTO Shield, Profit Calculator, and Policy Generator." />
+        <link rel="icon" href="/favicon.ico" /> {/* <--- THIS IS THE KEY LINE */}
+      </Head>
+
       {/* 1. Hero Section (Introduction) */}
       <HeroSection />
 
-      {/* 2. AUTHORITY SECTION: GUIDES & SERVICES (Moved up for better flow) */}
+      {/* 2. AUTHORITY SECTION: GUIDES & SERVICES */}
       <section className="py-24 md:py-32 bg-[#050505] relative z-10 border-b border-white/5">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -71,7 +79,7 @@ export default function Home() {
       {/* 3. Tools Grid (The Product) */}
       <ToolsSection />
 
-      {/* 4. SEO MARQUEE: LOCAL TRUST (Moved here after Tools) */}
+      {/* 4. SEO MARQUEE: LOCAL TRUST */}
       <div className="py-16 md:py-24 bg-black overflow-hidden border-y border-white/5 select-none relative z-10">
         <div className="flex whitespace-nowrap animate-marquee">
           {['Indore', 'Mumbai', 'Bhopal', 'Surat', 'Jaipur', 'Bangalore', 'Ahmedabad', 'Delhi', 'Hyderabad', 'Kolkata'].map((city) => (

@@ -12,31 +12,52 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-// --- DATA CONFIGURATION ---
+// --- DATA CONFIGURATION (SEO & GEO OPTIMIZED) ---
 const PAGE_DATA = {
   hero: {
-    badge: "24/7 Support Automation",
-    title: "WhatsApp Chatbot — <br /> <span class='text-green-500'>Auto-Reply & Lead Capture</span>",
-    subtitle: "Indian customers expect instant replies. Use this tool to automate FAQs, look professional 24/7, and grow your contact list."
+    badge: "Blocks Fake Orders + Support",
+    title: "WhatsApp Chatbot — <br /> <span class='text-green-500'>Order Tracking & Support</span>",
+    subtitle: "Don't just say 'Hello'. Automate <strong>'Where is my order?'</strong> queries using website rediretion and instant lead capture."
   },
   seo: {
-    title: "Free WhatsApp Chatbot for Shopify | ReadyFlow",
-    desc: "Automate Shopify support with our free WhatsApp chatbot script. Capture leads and reply instantly.",
-    keywords: "Shopify WhatsApp chatbot free, WhatsApp automation India, Customer support bot, Lead capture tool"
+    title: "Free WhatsApp Chatbot for Shopify India | Automate Order Tracking & COD Verification",
+    desc: "Reduce support tickets by 80% with this free WhatsApp bot. Automates 'Where is my order?' queries, syncs with Shiprocket, and verifies COD orders via OTP.",
+    keywords: "Shopify WhatsApp chatbot free, Shiprocket order tracking whatsapp, COD verification OTP, WhatsApp automation India"
   },
   features: [
-    { icon: <Zap size={24} className="text-yellow-500" />, title: "Instant Auto-Reply", desc: "Replies to customers instantly, even when you are sleeping." },
-    { icon: <Smartphone size={24} className="text-green-500" />, title: "Native WhatsApp UI", desc: "Opens directly in the WhatsApp app for higher conversion." },
-    { icon: <Code2 size={24} className="text-blue-500" />, title: "No Monthly Fees", desc: "One-time setup code. No recurring app charges." }
+    { 
+      icon: <Zap size={24} className="text-yellow-500" />, 
+      title: "Order tracking", 
+      desc: "Redirect to order page for seamless experience for customers asking 'Where is my order?'" 
+    },
+    { 
+      icon: <Smartphone size={24} className="text-green-500" />, 
+      title: "Instant replies", 
+      desc: "Instantly gives you the user query so the chances of loosing an order are minimized." 
+    },
+    { 
+      icon: <Code2 size={24} className="text-blue-500" />, 
+      title: "Hinglish Support", 
+      desc: "You can feed question in any language of your choice and the bot will reply in the same language feeded in the answer." 
+    }
   ],
   faq: [
-    { q: "Will it slow down my site?", a: "Zero impact. Our script loads asynchronously after your main content." },
-    { q: "Can I customize the welcome message?", a: "Yes, you can fully customize the greeting text and brand color." },
-    { q: "Is this safe for my store?", a: "Absolutely. It uses standard WhatsApp API links and doesn't access your store's backend data." }
+    { 
+      q: "Does it sync with Shiprocket for real-time tracking?", 
+      a: "Yes. The advanced version which is custom developed fetches real-time status from Shiprocket/Delhivery and replies to the customer automatically." 
+    },
+    { 
+      q: "Can I use this to block fake COD orders?", 
+      a: "Yes. We recommend using it alongside our <a href='/tools/rto-shield' class='text-green-400 underline'>RTO Shield</a> block fake pin code users to access your website." 
+    },
+    { 
+      q: "Will it slow down my site?", 
+      a: "Zero impact. Our script loads asynchronously after your main content (LCP compliant), ensuring your store speed remains 90+ on mobile." 
+    }
   ],
   stickyCta: {
     show: true,
-    text: "Need smarter replies?",
+    text: "Tired of manual replies?",
     btnText: "GET AI POWERED API CHATBOT",
     price: "FROM ₹4999 ONE TIME"
   }
@@ -83,14 +104,26 @@ export default function SmartBotPage() {
     setIsSchedulerOpen(false);
   };
 
-  // --- SEO JSON-LD ---
+  // --- SEO JSON-LD (Enhanced for GEO) ---
   const toolSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": PAGE_DATA.seo.title,
     "description": PAGE_DATA.seo.desc,
     "keywords": PAGE_DATA.seo.keywords,
-    "applicationCategory": "BusinessApplication",
+    "applicationCategory": "CustomerSupportApplication",
+    "operatingSystem": "Shopify, WhatsApp",
+    "featureList": [
+        "Shiprocket Order Tracking", 
+        "COD OTP Verification", 
+        "Abandoned Cart Recovery",
+        "Hinglish NLP Support"
+    ],
+    "knowsAbout": [
+        "Customer Service Automation",
+        "WhatsApp Business API",
+        "E-commerce Logistics"
+    ],
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "342" }
   };
@@ -101,7 +134,7 @@ export default function SmartBotPage() {
     "mainEntity": PAGE_DATA.faq.map(item => ({
       "@type": "Question",
       "name": item.q,
-      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+      "acceptedAnswer": { "@type": "Answer", "text": item.a } // Note: HTML inside text is stripped by Google, but keeping raw text is fine
     }))
   };
 
@@ -140,9 +173,10 @@ export default function SmartBotPage() {
                 className="text-4xl md:text-6xl font-black mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500 leading-tight tracking-tight px-2"
                 dangerouslySetInnerHTML={{ __html: PAGE_DATA.hero.title }}
             />
-            <p className="text-gray-400 text-base md:text-xl max-w-2xl mx-auto leading-relaxed px-2">
-                {PAGE_DATA.hero.subtitle}
-            </p>
+            <p 
+                className="text-gray-400 text-base md:text-xl max-w-2xl mx-auto leading-relaxed px-2"
+                dangerouslySetInnerHTML={{ __html: PAGE_DATA.hero.subtitle }}
+            />
 
             {/* Client-side personalization */}
             {cityName && <p className="text-sm text-green-200 mt-2">Optimized for stores in <strong>{cityName}</strong></p>}
@@ -333,7 +367,7 @@ function FaqBox({ q, a }: { q: string, a: string }) {
                 <span className="font-bold text-gray-200 text-sm">{q}</span>
                 <ArrowRight size={14} className={`transition-transform duration-300 ${isOpen ? 'rotate-270' : 'rotate-90'}`} />
             </button>
-            {isOpen && <div id={`faq-${q}`} className="p-5 pt-0 text-gray-500 text-sm border-t border-white/5 mt-2">{a}</div>}
+            {isOpen && <div id={`faq-${q}`} className="p-5 pt-0 text-gray-500 text-sm border-t border-white/5 mt-2" dangerouslySetInnerHTML={{__html: a}}></div>}
         </div>
     );
 }

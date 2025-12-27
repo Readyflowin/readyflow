@@ -16,22 +16,22 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-// --- DATABASE SIMULATION (Yahan se text change hoga) ---
+// --- DATABASE SIMULATION (SEO & GEO OPTIMIZED) ---
 const PAGE_DATA = {
   id: "policy-generator",
   slug: "policy-generator",
   hero: {
-    badge: "Razorpay & Paytm Approved",
+    badge: "Razorpay, Paytm & GST Compliant",
     title:
-      "India's Only <span class='text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600'>Compliance Ready</span> Policy Generator",
+      "India's Only <span class='text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600'>Razorpay Compliance Ready</span> Policy Generator",
     subtitle:
-      "Stop using generic US/UK templates. Get KYC-ready Privacy Policies & Refund Terms designed for Indian Payment Gateways.",
+      "Stop using generic US/UK templates. Generate GST-ready Privacy, Shipping & Refund Policies. Includes mandatory Grievance Officer details for Razorpay approval.",
     stats: "Trusted by 340+ Indian D2C Brands",
   },
   seo: {
-    title: "ReadyFlow Policy Generator — Razorpay & Paytm Compliant",
+    title: "Shopify Policy Generator India - Razorpay, Paytm & Consumer Protection Act Compliant",
     desc:
-      "Generate India-specific Privacy Policy & Refund Terms for Razorpay/Paytm approvals. Copy-paste to Shopify, WooCommerce or any site.",
+      "Free GST-ready Policy Generator for Indian Shopify stores. Create Privacy, Refund & Shipping terms with Grievance Officer details. Compliant with Consumer Protection Rules 2020.",
     schemaType: "SoftwareApplication",
     rating: "4.9",
     reviewCount: "342",
@@ -40,36 +40,62 @@ const PAGE_DATA = {
   },
   faq: [
     {
-      q: "Are these policies valid for Razorpay approval?",
-      a: "Yes, includes mandatory Grievance Officer details.",
+      q: "Are these policies compliant with Consumer Protection Act 2019?",
+      a: "Yes. Our generator includes mandatory disclosures like Country of Origin, Grievance Officer contact, and specific return windows required by Indian Law.",
     },
-    { q: "Is it really free?", a: "Yes, zero hidden charges." },
-    { q: "Will it work for WooCommerce?", a: "Absolutely. Just copy and paste." },
+    { 
+      q: "Do you include GST & DPIIT details for Razorpay approval?", 
+      a: "No, GST is not mandatory for shopify stores making revenue less than 8 lakhs a year. We request if your revenue crossed such limits, Get your legal built policies over a call through us including all the details." 
+    },
+    { 
+      q: "Can I set different return rules for COD vs Prepaid?", 
+      a: "Absolutely. The generated text allows conditional logic (e.g., 'No Returns on COD' or '7-Day Return for Prepaid') to help reduce RTO fraud." 
+    },
   ],
   // --- STICKY BANNER SETTINGS ---
   stickyCta: {
     show: true,
-    text: "RTO killing profits?",
-    btnText: "BOOK AUDIT", // Button Text
-    price: "₹1999", // Price
+    text: "Legal pages rejected?",
+    btnText: "GET APPROVED", // Button Text
+    price: "FREE", // Price
   },
 };
 
 function buildJsonLd() {
-  // SoftwareApplication schema
+  // SoftwareApplication schema (Enhanced for Entity Linking)
   const appSchema: any = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: PAGE_DATA.seo.title,
     url: PAGE_DATA.seo.canonical,
     description: PAGE_DATA.seo.desc,
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
+    applicationCategory: "LegalComplianceApplication",
+    operatingSystem: "Shopify, WooCommerce, Wix, Web",
+    audience: {
+      "@type": "Audience",
+      audienceType: "Indian D2C Merchants"
+    },
+    featureList: [
+      "GST Compliant Invoicing Clauses",
+      "Grievance Officer Details for Razorpay",
+      "RTO Dispute Protection Clauses",
+      "Consumer Protection Act 2019 Alignment"
+    ],
+    about: {
+      "@type": "Legislation",
+      name: "Consumer Protection (E-Commerce) Rules, 2020",
+      sameAs: "https://consumeraffairs.nic.in/"
+    },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: PAGE_DATA.seo.rating,
       reviewCount: PAGE_DATA.seo.reviewCount,
     },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "INR"
+    }
   };
 
   // FAQ schema
@@ -94,13 +120,13 @@ function buildJsonLd() {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Tools",
+        name: "Toolkit",
         item: "https://readyflow.in/tools",
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Policy Generator",
+        name: "Indian Policy Generator",
         item: PAGE_DATA.seo.canonical,
       },
     ],
@@ -126,7 +152,7 @@ export default function PolicyPage() {
     });
 
     const msg = `Hi ReadyFlow! I'm on the *${PAGE_DATA.seo.title}* page.
-I'd like to schedule a call.
+I'd like to schedule a call regarding compliance.
 
 *Date:* ${dateStr}
 *Time Slot:* ${selectedTime}
@@ -205,16 +231,19 @@ Please let me know if this time slot is available.`;
                 How to use?
               </h2>
               <ul className="space-y-6 border-l border-white/10 pl-6 ml-5">
-                <StepItem step="01" text="Enter your Official Business Name and Email." />
-                <StepItem step="02" text="Add your registered physical address." />
-                <StepItem step="03" text="Click 'Generate' and copy the text." />
+                <StepItem step="01" text="Enter your Official Business Name and Email (as per GST)." />
+                <StepItem step="02" text="Add your registered physical address for Legal compliance." />
+                <StepItem step="03" text="Click 'Generate' and paste the HTML into your Shopify Pages." />
               </ul>
             </div>
             <div>
               <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-white">Why this tool?</h2>
               <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
+                <p className="text-gray-400 text-sm mb-4">
+                  Standard Shopify templates often lack the <strong>"Indian Grievance Officer"</strong> and <strong>"Other mandatory"</strong> details required by law. Missing these can lead to payment gateway rejection.
+                </p>
                 <p className="text-gray-400 text-sm">
-                  Standard Shopify templates mein <strong>"Indian Grievance Officer"</strong> nahi hota. Razorpay approval ke liye ye zaroori hai.
+                  <strong>Pro Tip:</strong> Combining these strict policies with our <Link href="/tools/rto-shield" className="text-orange-500 hover:underline font-bold">RTO Shield</Link> significantly helps Reducing your RTO's.
                 </p>
               </div>
             </div>
@@ -227,9 +256,9 @@ Please let me know if this time slot is available.`;
               <button
                 onClick={() => setIsSchedulerOpen(true)}
                 className="px-8 py-4 bg-orange-600 text-white font-bold rounded-xl flex items-center gap-2 hover:bg-orange-500 hover:scale-105 transition-all"
-                aria-label="Book Strategy Call"
+                aria-label="Book Compliance Strategy Call"
               >
-                Book Strategy Call <ArrowRight size={18} />
+                Book Compliance Call <ArrowRight size={18} />
               </button>
             </div>
           </div>

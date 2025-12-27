@@ -144,7 +144,7 @@ export function SiteFooter() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-500 uppercase tracking-widest font-bold">
           <p>© 2025 ReadyFlow™ | All Rights Reserved.</p>
-          <p className="flex items-center gap-1">Architected by <span className="text-white">Aditya</span> | Made with <span className="text-indigo-500">⚡</span> in India.</p>
+          <p className="flex items-center gap-1">Architected And Developed by <span className="text-white">Aditya</span> | Made with <span className="text-indigo-500">⚡and ❤️</span> in India.</p>
         </div>
       </div>
     </footer>

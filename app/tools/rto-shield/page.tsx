@@ -9,31 +9,52 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-// --- MOCK DATABASE RESPONSE ---
+// --- DATABASE SIMULATION (SEO & GEO OPTIMIZED) ---
 const PAGE_DATA = {
   id: "rto-shield",
   slug: "rto-shield",
   hero: {
-    badge: "Security Infrastructure",
-    title: "RTO <br /> <span class='text-indigo-500'>Shield.</span>",
-    subtitle: "India mein dhanda sales se nahi, <span class='text-white font-bold'>Net Profit</span> se chalta hai. Stop fake orders before they hit your wallet."
+    badge: "Latency-Free Security",
+    title: "RTO <br /> <span class='text-indigo-500'>Shield India.</span>",
+    subtitle: "Stop fake orders using <strong>Predictive Pin code strategy</strong>. Block high-risk pincodes <span class='text-indigo-400 font-bold'>From all over INDIA</span> without slowing down your site."
   },
   seo: {
-    title: "RTO Shield: Stop Fake Shopify Orders | ReadyFlow",
-    desc: "The most advanced RTO reduction tool for Indian stores. Block high-risk pincodes and fake order patterns instantly.",
+    title: "RTO Shield for Shopify India: Block Fake COD Orders & Blacklist Pincodes (2025)",
+    desc: "Lightweight Shopify script to block high-risk RTO pincodes (J&K, Northeast). Automated COD-to-Prepaid conversion. Works with Shiprocket & Razorpay. No monthly fees.",
     schemaType: "SoftwareApplication",
     rating: "4.9",
     reviewCount: "215"
   },
   features: [
-    { icon: <Ban size={24} className="text-red-500" />, title: "Block Blacklisted IP/Phones", desc: "Automatically block customers with a history of high RTOs across our network." },
-    { icon: <Search size={24} className="text-indigo-500" />, title: "Address Validation", desc: "Detect incomplete addresses (e.g. 'xgames', 'test') instantly." },
-    { icon: <Lock size={24} className="text-green-500" />, title: "COD to Prepaid Logic", desc: "Hide COD option for high-risk pincodes or order values > ₹5000." }
+    { 
+      icon: <Ban size={24} className="text-red-500" />, 
+      title: "Block 25,000+ Blacklisted Zones", 
+      desc: "Instantly blocks delivery to high-RTO districts in UP, Bihar, Assam & J&K based on our 2025 fraud dataset." 
+    },
+    { 
+      icon: <Search size={24} className="text-indigo-500" />, 
+      title: "Predictive Pattern Detection", 
+      desc: "Detects fake patterns like '111111', 'abcde', or sequential numbers instantly using Client-Side Logic." 
+    },
+    { 
+      icon: <Lock size={24} className="text-green-500" />, 
+      title: "COD to Prepaid Nudges", 
+      desc: "When combined with our Pop Ups, users reported a huge drop in COD orders and RTO rates." 
+    }
   ],
   faq: [
-    { q: "How does it block fake orders?", a: "It uses a Javascript snippet to check the customer's phone number and pincode against our database before they can click 'Complete Order'." },
-    { q: "Will it slow down my site?", a: "No. The script runs asynchronously and is under 4KB in size." },
-    { q: "Is it compatible with all themes?", a: "Yes, it works with all Shopify 2.0 themes including Dawn, Impulse, and Sense." }
+    { 
+      q: "Does this conflict with Shiprocket or Delhivery automation?", 
+      a: "No. RTO Shield filters Scammers before they even scroll your website," 
+    },
+    { 
+      q: "Is the database updated for Northeast & J&K?", 
+      a: "Yes. We update our pincode blacklist weekly based on data from major Indian logistics partners to block 'high-intent' fraud zones specifically in remote areas." 
+    },
+    { 
+      q: "Will it slow down my site speed?", 
+      a: "Zero latency. Unlike heavy apps that load external iframes, this is a lightweight Vanilla JS script that executes locally in the user's browser." 
+    }
   ],
   // --- STICKY BANNER SETTINGS ---
   stickyCta: {
@@ -77,12 +98,35 @@ Please let me know if this time slot is available.`;
   };
 
 
-  // --- SEO SCHEMAS ---
+  // --- SEO SCHEMAS (Enhanced for GEO & Entity Linking) ---
   const toolSchema = {
     "@context": "https://schema.org",
     "@type": PAGE_DATA.seo.schemaType,
     "name": PAGE_DATA.seo.title,
     "description": PAGE_DATA.seo.desc,
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Shopify, Web",
+    "fileSize": "Lightweight",
+    "knowsAbout": [
+        "Return to Origin",
+        "Fraud Detection", 
+        "COD Verification",
+        "E-commerce Logistics"
+    ],
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Indian Shopify Merchants"
+    },
+    "featureList": [
+        "Blacklisted Pincode Database 2025",
+        "Fake Order Pattern Detection",
+        "COD to Prepaid Conversion"
+    ],
+    "sameAs": [
+        "https://www.shiprocket.in/", // Entity Link: Shiprocket
+        "https://www.delhivery.com/", // Entity Link: Delhivery
+        "https://www.shopify.in/"     // Entity Link: Shopify India
+    ],
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": PAGE_DATA.seo.rating, "ratingCount": PAGE_DATA.seo.reviewCount }
   };
@@ -152,7 +196,7 @@ Please let me know if this time slot is available.`;
                             Manual checking se <br className="hidden md:block" /> thak gaye?
                         </h3>
                         <p className="text-indigo-200/60 text-lg mb-8 leading-relaxed">
-                            Blocking fake orders manually is impossible at scale. Let us automate your entire RTO protection workflow.
+                            Blocking fake orders manually is impossible at scale. Let us automate your entire RTO protection workflow with our API integration.
                         </p>
                         
                         <div className="flex flex-wrap gap-4">
@@ -284,6 +328,7 @@ function StickyBanner({ data, onOpenScheduler }: { data: any, onOpenScheduler: (
                 <button 
                     onClick={(e) => { e.stopPropagation(); setIsDismissed(true); }}
                     className="absolute -top-2 -right-2 bg-[#222] text-gray-400 hover:text-white rounded-full p-1 border border-white/10 shadow-lg z-20"
+                    aria-label="Dismiss banner"
                 >
                     <X size={12} />
                 </button>

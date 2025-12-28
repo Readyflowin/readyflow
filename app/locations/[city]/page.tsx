@@ -6,7 +6,9 @@ import {
   MapPin, CheckCircle, Zap, ExternalLink, 
   HelpCircle, MessageCircle, Youtube, Star,
   Briefcase, ChevronRight, X, Calendar as CalendarIcon, 
-  IndianRupee, UserCheck, ArrowRight, Clock 
+  IndianRupee, UserCheck, ArrowRight, Clock,
+  // New Icons for Tools
+  Shield, Bot, FileText, Calculator, MousePointer2, Wrench
 } from 'lucide-react';
 import Link from 'next/link';
 import { cities, portfolioItems } from '@/lib/cityData'; 
@@ -15,10 +17,7 @@ export default function CityPage({ params }: { params: Promise<{ city: string }>
   // --- LOGIC: NEXT.JS 15+ PARAMS ---
   const resolvedParams = use(params);
   
-  // FIX 1: decodeURIComponent add kiya taaki spaces (Navi Mumbai) handle ho sakein
   const cityKey = decodeURIComponent(resolvedParams.city).toLowerCase();
-  
-  // FIX 2: 'as any' lagaya hai taaki TS naye data structure ko lekar error na de
   const data = cities[cityKey as keyof typeof cities] as any;
 
   // --- STATE: LEAD FILTER MODAL ---
@@ -34,7 +33,16 @@ export default function CityPage({ params }: { params: Promise<{ city: string }>
 
   if (!data) return notFound();
 
-  // --- SEO: SCHEMA MARKUP (LocalBusiness & FAQ) ---
+  // --- FREE TOOLS DATA ---
+  const freeTools = [
+    { name: "RTO Shield", url: "/tools/rto-shield", icon: <Shield size={16} className="text-green-500"/>, desc: "Stop fake orders" },
+    { name: "Smart Chatbot", url: "/tools/smart-chatbot", icon: <Bot size={16} className="text-blue-500"/>, desc: "Automate support" },
+    { name: "Policy Generator", url: "/tools/policy-generator", icon: <FileText size={16} className="text-yellow-500"/>, desc: "Legal pages" },
+    { name: "Popup Builder", url: "/tools/popup-builder", icon: <MousePointer2 size={16} className="text-purple-500"/>, desc: "Capture leads" },
+    { name: "Profit Calc", url: "/tools/profit-calculator", icon: <Calculator size={16} className="text-orange-500"/>, desc: "Calculate margins" },
+  ];
+
+  // --- SEO: SCHEMA MARKUP ---
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -52,7 +60,6 @@ export default function CityPage({ params }: { params: Promise<{ city: string }>
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    // FIX 3: yahan '(f: any)' add kiya hai jo tumhara main error tha
     "mainEntity": data.faqs?.map((f: any) => ({
       "@type": "Question",
       "name": f.q,
@@ -155,6 +162,8 @@ Please confirm if this slot is available.`;
             {/* RIGHT COLUMN: STICKY SIDEBAR */}
             <div className="lg:col-span-4 space-y-8">
                 <div className="sticky top-24">
+                    
+                    {/* 1. YOUTUBE VIDEO CARD */}
                     <div className="bg-[#0a0a0a] border border-red-500/30 rounded-[2rem] p-6 mb-6 shadow-2xl">
                         <div className="flex items-center gap-2 text-red-500 mb-4 font-bold uppercase text-[10px]">
                             <Youtube size={16} /> Technical Expert Advice
@@ -164,7 +173,8 @@ Please confirm if this slot is available.`;
                         </div>
                     </div>
 
-                    <div className="bg-white text-black p-8 rounded-[2.5rem] shadow-2xl">
+                    {/* 2. SCALE YOUR BRAND (MAIN CTA) */}
+                    <div className="bg-white text-black p-8 rounded-[2.5rem] shadow-2xl mb-6">
                         <div className="flex items-center gap-1 mb-3">
                             {[1,2,3,4,5].map(s => <Star key={s} size={12} fill="black" />)}
                         </div>
@@ -177,6 +187,28 @@ Please confirm if this slot is available.`;
                             GET A CUSTOM QUOTE <ArrowRight size={18}/>
                         </button>
                     </div>
+
+                    {/* 3. FREE TOOLS WIDGET (NEW ADDITION) */}
+                    <div className="bg-[#0a0a0a] border border-white/10 rounded-[2rem] p-6">
+                         <h4 className="font-bold text-white mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
+                            <Wrench size={14} className="text-purple-500"/> Free Shopify Tools
+                         </h4>
+                         <div className="grid grid-cols-1 gap-3">
+                            {freeTools.map((tool) => (
+                                <Link href={tool.url} key={tool.name} className="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/20 transition-all group">
+                                    <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform">
+                                        {tool.icon}
+                                    </div>
+                                    <div>
+                                        <p className="font-bold text-xs text-white group-hover:text-purple-400 transition-colors">{tool.name}</p>
+                                        <p className="text-[10px] text-gray-500">{tool.desc}</p>
+                                    </div>
+                                    <ChevronRight size={14} className="ml-auto text-gray-600 group-hover:text-white" />
+                                </Link>
+                            ))}
+                         </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -316,7 +348,6 @@ function OptionBtn({ children, onClick, active }: { children: React.ReactNode, o
 }
 
 function SimpleCalendar({ selected, onSelect }: { selected: Date | null, onSelect: (d: Date) => void }) {
-    // FIX 4: Explicitly typed the array
     const days: Date[] = [];
     const today = new Date();
     for (let i = 0; i < 7; i++) {

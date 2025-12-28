@@ -14,8 +14,12 @@ import { cities, portfolioItems } from '@/lib/cityData';
 export default function CityPage({ params }: { params: Promise<{ city: string }> }) {
   // --- LOGIC: NEXT.JS 15+ PARAMS ---
   const resolvedParams = use(params);
-  const cityKey = resolvedParams.city.toLowerCase();
-  const data = cities[cityKey as keyof typeof cities];
+  
+  // FIX 1: decodeURIComponent add kiya taaki spaces (Navi Mumbai) handle ho sakein
+  const cityKey = decodeURIComponent(resolvedParams.city).toLowerCase();
+  
+  // FIX 2: 'as any' lagaya hai taaki TS naye data structure ko lekar error na de
+  const data = cities[cityKey as keyof typeof cities] as any;
 
   // --- STATE: LEAD FILTER MODAL ---
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +52,8 @@ export default function CityPage({ params }: { params: Promise<{ city: string }>
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": data.faqs?.map(f => ({
+    // FIX 3: yahan '(f: any)' add kiya hai jo tumhara main error tha
+    "mainEntity": data.faqs?.map((f: any) => ({
       "@type": "Question",
       "name": f.q,
       "acceptedAnswer": { "@type": "Answer", "text": f.a }
@@ -180,7 +185,7 @@ Please confirm if this slot is available.`;
         <div className="mt-32 text-center border-t border-white/5 pt-16">
             <h2 className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Serviceable across {data.name} Landmarks</h2>
             <div className="flex flex-wrap justify-center gap-3">
-                {data.landmarks.split(', ').map((loc: string) => (
+                {data.landmarks?.split(', ').map((loc: string) => (
                     <span key={loc} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] text-gray-500">
                         {loc}
                     </span>
@@ -311,7 +316,8 @@ function OptionBtn({ children, onClick, active }: { children: React.ReactNode, o
 }
 
 function SimpleCalendar({ selected, onSelect }: { selected: Date | null, onSelect: (d: Date) => void }) {
-    const days = [];
+    // FIX 4: Explicitly typed the array
+    const days: Date[] = [];
     const today = new Date();
     for (let i = 0; i < 7; i++) {
         const d = new Date(today);

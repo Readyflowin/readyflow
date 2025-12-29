@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 // Existing Imports
 import { SiteHeader } from "@/components/ui/layout/SiteHeader";
@@ -113,6 +114,7 @@ export default function RootLayout({
             <SiteFooter />
           </div>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

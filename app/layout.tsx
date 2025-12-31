@@ -6,7 +6,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/ui/layout/SiteHeader";
 import { SiteFooter } from "@/components/ui/layout/SiteFooter";
 import { AuthProvider } from "./context/AuthContext";
-
+import { Analytics } from "@vercel/analytics/next"
 const inter = Inter({ subsets: ["latin"] });
 
 // 👇 1. ADVANCED SEO METADATA (Updated with Icons)
